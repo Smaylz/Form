@@ -2,7 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var pg = require('pg');
 var app = express();
- 
+
 var parser = bodyParser.json();
  
 app.use(express.static(__dirname));
@@ -22,13 +22,11 @@ app.post("/register",parser, function (request, response) {
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     	client.query('SELECT * FROM register', function(err, result) {
       	done();
-      	if (err)
-       		{ 
+      	if (err){ 
        			console.error(err); 
        			response.send("Error " + err); 
        		}
-      	else
-       		{ 
+      	else{ 
        			client.query('INSERT INTO register(name, email, password) values($1, $2, $3)',[event.name, event.email, event.password] );
        			response.send(event);
         	}
@@ -54,13 +52,11 @@ app.get('/listen', function(request,response){
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     	var query = client.query('SELECT * FROM register', function(err, result) {
       	done();
-      	if (err)
-       		{ 
+      	if (err){ 
        			console.error(err); 
        			response.send("Error " + err); 
        		}
-      	else
-       		{
+      	else{
        			response.send(result);
         	}
     	});
@@ -68,8 +64,7 @@ app.get('/listen', function(request,response){
 })
 
 app.get('/home',function(request, response){
-     
-    response.render("home.hbs");
+     response.render("home.hbs");
 });
 
 app.listen(process.env.PORT || 3000);
