@@ -1,0 +1,46 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>form</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+
+  </head>
+  <body >
+    <form class="form-horizontal" role="form" ng-controller="controller" name="formItem">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Имя</label>
+        <div class="col-sm-4">
+          <input class="form-control" id="inputName3" ng-minlength=3 required placeholder="Имя" ng-model="formInfo.name" ng-class="{'myClass':formItem.userName.$invalid && formItem.userName.$dirty}" name="userName">
+          <span ng-show="formItem.userName.$invalid && formItem.userName.$dirty">Обязательное поле! Не менее 3 символов!</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-4">
+          <input class="form-control" id="inputEmail3" required my-directive placeholder="Email" ng-model="formInfo.email" ng-class="{'myClass':formItem.userEmail.$invalid && formItem.userEmail.$dirty}" type="email"  name="userEmail">
+          <span ng-show="formItem.userEmail.$invalid && formItem.userEmail.$dirty">Данный email уже зарегестрирован!</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Пароль</label>
+        <div class="col-sm-4">
+          <input class="form-control" id="inputPassword3" ng-minlength=6 required placeholder="Пароль" ng-model="formInfo.password" ng-class="{'myClass':formItem.userPassword.$invalid && formItem.userPassword.$dirty}" name="userPassword">
+          <span ng-show="formItem.userPassword.$invalid && formItem.userPassword.$dirty">Обязательное поле! Не менее 6 символов!</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+           <button ng-disabled="formItem.userName.$invalid || formItem.userEmail.$invalid || formItem.userPassword.$invalid" type="submit" class="btn btn-success" ng-click="save(formInfo)">Зарегестрироваться</button>
+       </div>
+      </div>
+    </form>    
+    <script src="/lib/angular.js"></script>
+    <script src="/lib/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="/controller/controllerRegister.js"></script>
+    <script src="/lib/myDirective.js"></script>
+  </body>
+</html>
